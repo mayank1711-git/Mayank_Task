@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row" style="margin-top:50px;">
+   
+ <div class="col-md-12" style="text-align:center;">
+    @if(!User.Identity.IsAuthenticated){
+     <h2>Welcome</h2>
+     }
+ </div>   
+ <div class="col-md-12">
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                @(Html.Kendo().Grid<Mayank_Task.Models.RegisterViewModel>()
+                .Name("grid")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Name).Width(200);
+                    columns.Bound(c => c.Email).Width(200);
+                    columns.Bound(c => c.DesignationValue).Width(100);
+                    columns.Bound(c => c.SkillValue).Width(200);
+                    columns.Command(cmd => cmd.Edit()).Width(40);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                        .Model(model => model.Id(m => m.Id))
+                            .Events(events =>
+                                  {
+                                      events.RequestEnd("onRequestEnd"); 
+                                  })
+                        .Read(read => read.Action("GetUserDetail", "Home"))
+                        .Update(up => up.Action("UpdateUserDetails", "Home"))
+                )
+                .Editable(ed => ed.Mode(GridEditMode.PopUp).TemplateName("_userModal")))
+           }
+        }
+     </div>
+    </div>
+
+<script>
+    function onRequestEnd(e) {
+        if (e.type == "update") {
+            $("#grid").data("kendoGrid").dataSource.read();
+        }
+    }
+</script>
+
+ 

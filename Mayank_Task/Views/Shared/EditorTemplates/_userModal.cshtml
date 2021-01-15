@@ -1,0 +1,66 @@
+﻿@model Mayank_Task.Models.RegisterViewModel
+
+
+<div class="k-edit-form-container">
+   @Html.HiddenFor(model => model.Id)
+    
+    <div class="k-edit-label">
+        @Html.LabelFor(model => model.Name)
+    </div>
+    <div class="k-edit-field">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div class="k-edit-label">
+        @Html.LabelFor(model => model.Email)
+    </div>
+    <div class="k-edit-field">
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @disabled = "disabled" } })
+    </div>
+
+    <div class="k-edit-label">
+        @Html.LabelFor(model => model.Designation)
+    </div>
+    <div class="k-edit-field">
+        @(Html.Kendo().DropDownList()
+              .Name("Designation")
+              .OptionLabel("Select Designation")
+              .DataTextField("name")
+              .DataValueField("id")
+              .Value(Model.Designation)
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetDesignations", "Home");
+                  }).ServerFiltering(true);
+              }).Enable(true).AutoBind(false))
+    </div>
+
+    @*<div class="k-edit-label">
+        @Html.LabelFor(model => model.Skills)
+    </div>
+    <div class="k-edit-field">
+        @(Html.Kendo().MultiSelect()
+              .Name("SkillSet")
+              .DataTextField("name")
+              .DataValueField("id")
+              .Value(Model.Skills)
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetSkillSets", "Home");
+                  }).ServerFiltering(true);
+              }).Enable(true).AutoBind(false))
+    </div>*@
+</div>
+
+
+<script>
+    $(function () {
+        $("#Designation").val(@Model.SkillValue);
+    });
+    
+</script>

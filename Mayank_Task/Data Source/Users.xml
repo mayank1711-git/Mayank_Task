@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Users>
+  <User>
+    <Id>1</Id>
+    <Name>Mayank</Name>
+    <Email>b@gmail.com</Email>
+    <Designation>3</Designation>
+    <Skills>1,2</Skills>
+  </User>
+  <User>
+    <Id>2</Id>
+    <Name>Mayur</Name>
+    <Email>T@gmail.com</Email>
+    <Designation>2</Designation>
+    <Skills>2</Skills>
+  </User>
+</Users>
